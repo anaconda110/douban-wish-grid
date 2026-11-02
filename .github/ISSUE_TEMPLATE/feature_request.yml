@@ -1,0 +1,42 @@
+name: 功能建议
+description: 建议新增功能或改进交互
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你遇到的问题
+      description: 请描述当前操作流程中的具体不便
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望的解决方式
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 考虑过的替代方案
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 预期影响范围
+      options:
+        - 收藏列表
+        - 影视详情页
+        - 两者都涉及
+        - 构建/发布/文档
+        - 不确定
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: 提交前确认
+      options:
+        - label: 我已搜索现有 Issue，且未发现相同建议
+          required: true

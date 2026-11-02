@@ -1,0 +1,35 @@
+{
+  "name": "douban-wish-grid",
+  "version": "1.8.0",
+  "private": true,
+  "description": "豆瓣影视收藏自适应海报网格、自动加载、三态切换与资源搜索用户脚本/浏览器扩展",
+  "license": "MIT",
+  "author": "anaconda110",
+  "homepage": "https://github.com/anaconda110/douban-wish-grid#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anaconda110/douban-wish-grid.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anaconda110/douban-wish-grid/issues"
+  },
+  "keywords": [
+    "douban",
+    "userscript",
+    "tampermonkey",
+    "violentmonkey",
+    "browser-extension",
+    "playwright"
+  ],
+  "scripts": {
+    "check": "node --check src/douban-wish-grid.user.js && node --check scripts/build.mjs && node --check scripts/check-release-version.mjs && node --check tests/status-buttons.test.js",
+    "build": "node scripts/build.mjs",
+    "test": "npm run check && npm run build && node tests/status-buttons.test.js"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

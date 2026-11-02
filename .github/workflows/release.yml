@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify release version
+        run: node scripts/check-release-version.mjs
+
+      - name: Test and build
+        run: npm test
+
+      - name: Create checksums
+        run: |
+          cd dist
+          sha256sum douban-wish-grid.user.js douban-wish-grid-extension.zip > SHA256SUMS
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            dist/douban-wish-grid.user.js \
+            dist/douban-wish-grid-extension.zip \
+            dist/SHA256SUMS \
+            --verify-tag \
+            --generate-notes \
+            --title "$GITHUB_REF_NAME"
